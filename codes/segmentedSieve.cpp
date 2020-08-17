@@ -1,0 +1,66 @@
+#include <bits/stdc++.h> 
+using namespace std; 
+
+
+void sieve(int limit, vector<long long int> &prime) { 
+	bool mark[limit+1]; 
+	memset(mark, true, sizeof(mark)); 
+
+	for (int p=2; p*p<limit; p++) { 
+		if (mark[p] == true) { 
+			for (int i=p*2; i<limit; i+=p){ 
+				mark[i] = false; 
+            }
+		} 
+	} 
+
+	for (int p=2; p<limit; p++) { 
+		if (mark[p] == true) { 
+			prime.push_back(p); 
+		} 
+	} 
+} 
+
+void segmentedSieve(long long int n) { 
+	int limit = floor(sqrt(n))+1; 
+	vector<long long int> prime; 
+	sieve(limit, prime); 
+
+	int low = limit; 
+	int high = 2*limit; 
+
+	while (low < n) { 
+		if (high >= n) 
+		high = n; 
+
+		bool mark[limit+1]; 
+		memset(mark, true, sizeof(mark)); 
+
+
+		for (int i = 0; i < prime.size(); i++) { 
+			int loLim = floor(low/prime[i]) * prime[i]; 
+			if (loLim < low) 
+				loLim += prime[i]; 
+
+			for (int j=loLim; j<high; j+=prime[i]) 
+				mark[j-low] = false; 
+		} 
+
+		for (int i = low; i<high; i++) {
+			if (mark[i - low] == true) 
+				cout << i << " "; 
+        }
+
+		low = low + limit; 
+		high = high + limit; 
+	} 
+} 
+
+// Driver program to test above function 
+int main() 
+{ 
+	long long int n = 1000000000000; 
+	cout << "Primes smaller than " << n << ":n"; 
+	segmentedSieve(n); 
+	return 0; 
+} 
