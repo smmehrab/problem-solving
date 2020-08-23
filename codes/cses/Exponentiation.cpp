@@ -1,20 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
+typedef long long int ll;
 
- 
+ll solve(ll a, ll b, ll m){
+	if(b==0) return 1;
+	else{
+		ll r = solve(a, (ll)(b/2), m);
+		r = (r*r)%m;
+		return (b%2==0) ? r : (r*a)%m;
+	}
+}
+
 int main() {
-    long long int testCaseCount, a, b, m;
-	cin >> testCaseCount;
-    for(int testCase = 1; testCase <= testCaseCount; testCase++){
-        cin >> a >> b;
-        
-    }
-	for (int i = 0; i < n; i++) 
-		cin >> a[i];
-	for (int j = 0; j < m; j++) 
-		cin >> b[j];
-	
-    memset(dp, -1, sizeof(dp));
-	cout << solve(0, 0) << endl;
+    ll t, a, b, m=1e9+7;
+	cin >> t;
+	while(t--){
+		cin >> a >> b;
+		cout << solve(a, b, m) << endl;
+	}
 	return 0;
 }
