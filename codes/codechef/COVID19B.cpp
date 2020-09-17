@@ -39,7 +39,7 @@ int main(){
 
             int totalInfected=0;
             for(int athlete=0; athlete<n; athlete++){
-                if(isInfected[athlete]) totalInfected ++;
+                if(isInfected[athlete]) totalInfected++;
             }
 
             bestCase = min(bestCase, totalInfected);
