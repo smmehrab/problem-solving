@@ -7,7 +7,7 @@ public:
         hash[0]=1;
         for(int number : numbers) {
             sum += number;
-            answer += ((hash.find(sum-k) != hash.end())) ? hash[sum-k] : 0;
+            answer += (hash.find(sum-k) != hash.end()) ? hash[sum-k] : 0;
             hash[sum]++;
         }
 
