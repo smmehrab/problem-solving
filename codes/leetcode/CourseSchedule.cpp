@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool canFinish(int numberOfCourses, vector<vector<int>>& prerequisites) {
+        vector<int> graph[numberOfCourses];
+        vector<int> prerequisiteCount(numberOfCourses, 0);
+        for(vector<int> prerequisite : prerequisites) {
+            prerequisiteCount[prerequisite[1]]++;
+            graph[prerequisite[0]].push_back(prerequisite[1]);
+        }
+
+        queue<int> takeableCourses;
+        for(int course=0; course<numberOfCourses; course++) 
+            if(prerequisiteCount[course]==0) 
+                takeableCourses.push(course);
+      
+        int courseTaken=0;
+        while(!takeableCourses.empty()) {
+            int currentCourse = takeableCourses.front();
+            takeableCourses.pop();
+            courseTaken++;
+            for(int dependentCourse : graph[currentCourse]) 
+                if(--prerequisiteCount[dependentCourse]==0) 
+                    takeableCourses.push(dependentCourse);
+        }
+        
+        return courseTaken==numberOfCourses;
+    }
+};
