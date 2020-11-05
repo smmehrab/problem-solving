@@ -4,8 +4,8 @@ public:
         vector<int> graph[numberOfCourses];
         vector<int> prerequisiteCount(numberOfCourses, 0);
         for(vector<int> prerequisite : prerequisites) {
-            prerequisiteCount[prerequisite[1]]++;
-            graph[prerequisite[0]].push_back(prerequisite[1]);
+            prerequisiteCount[prerequisite[0]]++;
+            graph[prerequisite[1]].push_back(prerequisite[0]);
         }
 
         queue<int> takeableCourses;
