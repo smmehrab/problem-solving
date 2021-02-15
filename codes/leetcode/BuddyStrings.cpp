@@ -26,4 +26,4 @@ public:
         }
         return (difCount == 2);
     }
-};
+};  

@@ -1,45 +1,39 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+
 class Solution {
-public:
+private:
+    int numberOfNodes, postorderIndex;
+    vector<int> inorder, postorder;
+    unordered_map<int, int> nodeInorderIndex;
     
-    TreeNode* helper(unordered_map<int,int>& mp, vector<int>& inorder, vector<int>& postorder, int i_first, int i_last)
-    {
-        if(i_first > i_last) // base condition by checking size of subtree
-            return NULL;
+    TreeNode *buildUtil(int start, int end){
+        if(start > end) return nullptr;
         
-        // the approach I have used is to first find the root node value, then break the inorder vector into left subtree and right subtree with respect to the root node. Then filling its left and right subtrees and finally returning the root node.
-        int val,index = -1;
-        // the node which lies inside the range of given inorder and is rightmost in the postorder is regarded as the current root node.
-        for(auto it=postorder.rbegin();it!=postorder.rend();it++)
-        {
-            if(mp[*it] >= i_first && mp[*it] <= i_last)
-            {
-                index = mp[*it];
-                break;
-            }
-        }
-        
-        val = inorder[index];
-        TreeNode* root = new TreeNode(val);
-        
-        root->left = helper(mp,inorder,postorder,i_first,index-1);
-        root->right = helper(mp,inorder,postorder,index+1,i_last);
+        TreeNode *root = new TreeNode(postorder.at(postorderIndex--));
+        int inorderIndex   = nodeInorderIndex.at(root->val);
+        root->right = buildUtil(inorderIndex+1, end);
+        root->left  = buildUtil(start, inorderIndex-1);
         
         return root;
-        
     }
     
+public:
     TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
-        
-        unordered_map<int,int> mp;
-        
-        int n = inorder.size();
-        for(int i=0;i<n;i++)
-            mp[inorder[i]] = i;
-        
-        
-        TreeNode* actualroot = helper(mp,inorder,postorder,0,n-1);
-        
-        return actualroot;
-        
+        numberOfNodes = postorder.size();
+        postorderIndex = numberOfNodes - 1;
+        this->inorder = inorder;
+        this->postorder = postorder;
+        for(int i=0; i<numberOfNodes; i++) nodeInorderIndex.insert({inorder[i], i});
+        return buildUtil(0, numberOfNodes-1);
     }
 };
