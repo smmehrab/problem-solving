@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// A simulation for the algorithm
+// Link: http://manacher-viz.s3-website-us-east-1.amazonaws.com/#/
+
 string findLPS(string s) { 
     int n = s.size(); 
     if(n == 0 || n==1) return s; 
