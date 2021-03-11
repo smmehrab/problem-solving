@@ -51,7 +51,6 @@ int main(){
 
 	inversionCount = mergeSort(input, output, 0, n-1);
 
-
 	for(int i=0; i<n; i++)
         cout << output[i] << " ";
     cout << endl;
