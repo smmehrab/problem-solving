@@ -2,7 +2,7 @@
 using namespace std;
 
 struct Point {
-    long long int x , y ;
+    long long int x , y;
 };
 typedef struct Point Point;
 
@@ -11,7 +11,7 @@ enum Orientation {
 };
 
 Orientation orientation(Point p, Point q, Point r)  { 
-	int area = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y); 
+	long long int area = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y); 
 	if (area == 0) 
         return Colinear;
     return (area>0) ? Clockwise : Counterclockwise;
@@ -96,7 +96,7 @@ double angle(Point p1, Point p2, Point p3) {
 }
 
 int main() {
-    cout << setprecision(10) << fixed;
+    cout << setprecision(6) << fixed;
 
     int testCaseCount, n;
     cin >> testCaseCount;
