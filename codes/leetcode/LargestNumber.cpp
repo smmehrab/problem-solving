@@ -1,15 +1,18 @@
 class Solution {
 public:
-    string largestNumber(vector<int>& numbers) {
-        if(numbers.size()==0) return "";
-        sort(numbers.begin(), numbers.end(), [](const int a, const int b) {
-            return ((to_string(a)+to_string(b)) > (to_string(b)+to_string(a)));
+    string largestNumber(vector<int>& nums) {
+        vector<string> numStrings;
+        for(int num : nums)
+            numStrings.push_back(to_string(num));
+        
+        sort(numStrings.begin(), numStrings.end(), [] (string s1, string s2) {
+            return (s1+s2) > (s2+s1);
         });
+        
+        string number;
+        for(string numString : numStrings)
+            number += numString;
 
-        if(numbers[0]==0) return "0";
-
-        string largestNumber;
-        for(int number : numbers) largestNumber += to_string(number);
-        return largestNumber;
+        return (number[0]=='0') ? "0" : number;
     }
 };
