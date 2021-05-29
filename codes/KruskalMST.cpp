@@ -22,6 +22,7 @@ int findRoot(int x){
 long long int kruskal(vector<pair<long long int, pair<int, int>>>& edges){
     int u, v, uRoot, vRoot;
     long long int w, minimumCost = 0;
+    sort(edges.begin(), edges.end());
     for(pair<long long int, pair<int, int>> edge : edges){
         u = edge.second.first;
         v = edge.second.second;
@@ -48,7 +49,6 @@ int main(){
         edges.push_back({w, {u, v}});
     }
 
-    sort(edges.begin(), edges.end());
     minimumCost = kruskal(edges);
 
     cout << minimumCost << endl;
