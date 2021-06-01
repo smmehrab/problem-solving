@@ -1,62 +1,47 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-# define INF 0x3f3f3f3f
-typedef pair<int, int> intPair;
+#define INF 0x3f3f3f3f
 
-void addEdge(vector<intPair> adj[], int u, int v, int w){
-	adj[u].push_back(make_pair(v, w));
-	adj[v].push_back(make_pair(u, w));
-}
+vector<int> dijkstra(int source, int n, vector<pair<int, int>> connections[]){
+	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+	vector<int> distances(n, INF);
+	int u, v, w;
 
-void shortestPath(vector<intPair> adj[], int V, int src){
-	priority_queue<intPair> pq;
-	vector<int> dist(V, INF);
-
-	pq.push(make_pair(0, src));
-	dist[src] = 0;
-
+	distances[source] = 0;
+	pq.push({distances[source], source});
 	while (!pq.empty()){
-		int u = pq.top().second;
+		u = pq.top().second;
 		pq.pop();
-
-		vector< intPair >::iterator i;
-		for (i = adj[u].begin(); i != adj[u].end(); ++i){
-			int v = (*i).first;
-			int weight = (*i).second;
-
-			if (dist[v] > dist[u] + weight){
-				dist[v] = dist[u] + weight;
-				pq.push(make_pair(dist[v], v));
+		for (pair<int, int> connection : connections[u]) {
+			v = connection.first;
+			w = connection.second;
+			if (distances[v] > distances[u] + w){
+				distances[v] = distances[u] + w;
+				pq.push(make_pair(distances[v], v));
 			}
 		}
 	}
 
-	printf("Vertex Distance from Source\n");
-	for (int i = 0; i < V; ++i)
-		printf("%d \t\t %d\n", i, dist[i]);
+	return distances;
 }
 
-int main(){
-	int V = 9;
-	vector<intPair > adj[V];
+int main() {
+	int n, m, u, v, w;
+	cin >> n >> m;
 
-	addEdge(adj, 0, 1, 4);
-	addEdge(adj, 0, 7, 8);
-	addEdge(adj, 1, 2, 8);
-	addEdge(adj, 1, 7, 11);
-	addEdge(adj, 2, 3, 7);
-	addEdge(adj, 2, 8, 2);
-	addEdge(adj, 2, 5, 4);
-	addEdge(adj, 3, 4, 9);
-	addEdge(adj, 3, 5, 14);
-	addEdge(adj, 4, 5, 10);
-	addEdge(adj, 5, 6, 2);
-	addEdge(adj, 6, 7, 1);
-	addEdge(adj, 6, 8, 6);
-	addEdge(adj, 7, 8, 7);
+	vector<pair<int, int> > connections[n];
+	for(int i=0; i<m; i++) {
+		cin >> u >> v;
+		connections[u].push_back({v, w});
+		connections[v].push_back({u, w});
+	}
 
-	shortestPath(adj, V, 0);
+	vector<int> distances = dijkstra(0, n, connections);
+
+	cout << "Shortest Path from Source" << endl;
+	for (int i=0; i<n; ++i)
+		cout << i << " \t\t " << distances[i] << endl;
 
 	return 0;
 }
