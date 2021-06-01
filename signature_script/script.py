@@ -14,11 +14,11 @@ signature += "*/\n"
 
 for (root, directories, files) in os.walk(path):
     for filename in files:
-        if filename.endswith(".cpp"):
+        if filename.endswith(".cpp") or filename.endswith(".c") :
             filePath = os.path.join(root, filename)
-            with open(filePath, 'r') as file:
+            print(filePath)
+            with open(filePath, 'r', encoding = "ISO-8859-1") as file:
                 content = file.read()
-            print(content)
             content = signature + content
-            with open(filePath, 'w') as file:
+            with open(filePath, 'w', encoding = "ISO-8859-1") as file:
                 file.write(content)
