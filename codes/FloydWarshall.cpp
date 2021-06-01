@@ -25,8 +25,8 @@ int main(){
     for(int i=0; i<m; i++) {
         cin >> a >> b >> c;
         a--; b--;
-        distances[a][b] = c;
-        distances[b][a] = c;
+        distances[a][b] = min(distances[a][b], c);
+        distances[b][a] = min(distances[b][a], c);
     }
 
 	floydWarshall(n, distances);
