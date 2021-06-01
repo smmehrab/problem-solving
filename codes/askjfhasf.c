@@ -1,3 +1,12 @@
+/*
+************************************************
+username    :   smmehrab
+fullname    :   s.m.mehrabul islam
+email       :   mehrab.24csedu.001@gmail.com
+institute   :   university of dhaka, bangladesh
+session     :   2017-2018
+************************************************
+*/
 #include<stdio.h>
 int main(){
 	long long int x[1000001],temp,a,b,r[1000001],i,j,k,l,n;

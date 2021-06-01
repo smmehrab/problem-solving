@@ -1,3 +1,12 @@
+/*
+************************************************
+username    :   smmehrab
+fullname    :   s.m.mehrabul islam
+email       :   mehrab.24csedu.001@gmail.com
+institute   :   university of dhaka, bangladesh
+session     :   2017-2018
+************************************************
+*/
 #include <stdio.h>
 int k;
 char a[]={'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};

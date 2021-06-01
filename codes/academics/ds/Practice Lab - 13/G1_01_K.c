@@ -1,3 +1,12 @@
+/*
+************************************************
+username    :   smmehrab
+fullname    :   s.m.mehrabul islam
+email       :   mehrab.24csedu.001@gmail.com
+institute   :   university of dhaka, bangladesh
+session     :   2017-2018
+************************************************
+*/
 #include <stdio.h>
 
 void multiplyMatrices(int r1, int c1, int matrixA[10][10], int r2, int c2, int matrixB[10][10], int matrixProduct[10][10])

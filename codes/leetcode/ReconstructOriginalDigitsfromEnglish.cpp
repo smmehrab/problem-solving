@@ -1,3 +1,12 @@
+/*
+************************************************
+username    :   smmehrab
+fullname    :   s.m.mehrabul islam
+email       :   mehrab.24csedu.001@gmail.com
+institute   :   university of dhaka, bangladesh
+session     :   2017-2018
+************************************************
+*/
 class Solution {
     static constexpr pair<char, int> digChars[10] = {{'z', 0}, {'w', 2}, {'x', 6}, {'s', 7}, {'g', 8}, {'h', 3}, {'v', 5}, {'f', 4}, {'o', 1}, {'e', 9}};
     static string digWord[10] = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};

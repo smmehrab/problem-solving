@@ -1,3 +1,12 @@
+/*
+************************************************
+username    :   smmehrab
+fullname    :   s.m.mehrabul islam
+email       :   mehrab.24csedu.001@gmail.com
+institute   :   university of dhaka, bangladesh
+session     :   2017-2018
+************************************************
+*/
 // Consider a row of n coins of value v1,v2.......,vn. 
 // We play a game against an opponent by alternating turns. 
 // In each turn a player selects either the first coin or the last coin from the row, 

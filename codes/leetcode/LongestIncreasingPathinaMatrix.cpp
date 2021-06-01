@@ -1,3 +1,12 @@
+/*
+************************************************
+username    :   smmehrab
+fullname    :   s.m.mehrabul islam
+email       :   mehrab.24csedu.001@gmail.com
+institute   :   university of dhaka, bangladesh
+session     :   2017-2018
+************************************************
+*/
 class Solution {
 private:
     int solve(int i, int j, int previous, int n, int m, vector<vector<int>>& matrix, vector<vector<int>>& dp){

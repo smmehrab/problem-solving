@@ -1,3 +1,12 @@
+/*
+************************************************
+username    :   smmehrab
+fullname    :   s.m.mehrabul islam
+email       :   mehrab.24csedu.001@gmail.com
+institute   :   university of dhaka, bangladesh
+session     :   2017-2018
+************************************************
+*/
 // Let's define a "sevenish" number to be one 
 // which is either a power of 7, or the sum of unique powers of 7. 
 // The first few sevenish numbers are 1, 7, 8, 49, and so on. 
