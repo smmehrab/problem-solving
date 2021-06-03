@@ -7,51 +7,40 @@ institute   :   university of dhaka, bangladesh
 session     :   2017-2018
 ************************************************
 */
-#include <bits/stdc++.h>
-#include <stdio.h>
-#include <math.h>
-#include <stdbool.h>
-#include <string> 
-#include <map>
+#include<bits/stdc++.h>
 using namespace std;
 
-long long int highestPowerof5(long long int n) 
-{ 
-   long long int power = 0;
-   while(n%5==0){
-       n/=5;
-       power++;
-   } 
-   return power;  
-} 
+long long int findTrailingZeroes(long long int number) {
+    long long int traillingZeros = 0;
+    for (long long int i=5; i<=number; i*=5) 
+        traillingZeros += (number/i);
+    return traillingZeros;
+}
 
-// Driver Code
-int main()
-{
-    int testCaseCount;
-    int testCase;
-    long long int q, n, power;
-    string answer, qs, ns;
-    map<string, string> storedQ;
-    for(q=1, n=5, power=1; q<1000010; q++){
-        qs = to_string(q);
-        if(power==1){
-            ns = to_string(n);
-            storedQ[qs] = ns;
-            n+=5;
-            power =  highestPowerof5(n);
-        } else{
-            storedQ[qs] = "impossible";
-            power--;
-        }
+long long int binarySearch(long long int q) {
+    long long int low = 1, mid, high = LLONG_MAX; 
+    long long int trailingZeroes, n = -1;
+    while(low <= high) {
+        mid = (low + high) / 2;
+        trailingZeroes = findTrailingZeroes(mid);
+        if(trailingZeroes > q) 
+            high = mid-1;
+        else if(trailingZeroes < q) 
+            low = mid+1;
+        else 
+            n = mid, high = mid-1;
     }
-    scanf("%d", &testCaseCount);
-    for (testCase = 1; testCase <= testCaseCount; testCase++)
-    {
-        scanf("%lld", &q);
-        qs = to_string(q);
-        answer = storedQ[qs];
-        printf("Case %d: %s\n", testCase, answer.c_str());
+    return n;
+}
+
+int main() {
+    int testCaseCount;
+    long long int q, n;
+    cin >> testCaseCount;
+    for (int testCase = 1; testCase <= testCaseCount; testCase++) {
+        cin >> q;
+        n = binarySearch(q);
+        cout << "Case " << testCase << ": " << (n==-1 ? "impossible" : to_string(n)) << endl;
     }
     return 0;
 }
