@@ -56,7 +56,7 @@ public:
 	    dependants[a].push_back(b);
     }
 
-	void topologicalSort() {
+	vector<int> topologicalSort() {
         stack<int> sorted;
         vector<bool> visited(n, false);
 
@@ -70,8 +70,7 @@ public:
             return;
         }            
 
-        for(int node : topologicalOrder) 
-            cout << node+1 << " ";
+        return topologicalOrder;
     }
 };
 
@@ -85,6 +84,9 @@ int main() {
         graph.addDependant(a-1, b-1);
     }    
 
-	graph.topologicalSort();
+	vector<int> order = graph.topologicalSort();
+    for(int node : order) 
+        cout << node << " ";
+
 	return 0;
 }
