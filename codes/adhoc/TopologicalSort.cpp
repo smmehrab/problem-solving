@@ -67,7 +67,7 @@ public:
 
         if(checkForCycle(sorted)) {
             cout << "IMPOSSIBLE" << endl;
-            return;
+            return vector<int>();
         }            
 
         return topologicalOrder;
