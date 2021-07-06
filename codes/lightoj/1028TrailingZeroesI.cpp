@@ -8,78 +8,61 @@ session     :   2017-2018
 ************************************************
 */
 #include<bits/stdc++.h>
-#include<stdio.h>
-#include<math.h>
-#include<stdbool.h>
 using namespace std;
 
+#define PRIME_LIMIT 1000005
 
-const int PRIME_LIMIT = 1000001;
-bool isPrime[PRIME_LIMIT];
-vector<long long int> primeNumbers;
+vector<long long int> sieve() {
+    vector<long long int> primes;
+    vector<bool> isPrime(PRIME_LIMIT, true);
 
-// Sieve Of Eratosthenes
-void sieve(int limit) {
-	for(int i = 0; i < limit; i++){
-        isPrime[i] = true;
+    for(long long int i=3; i<PRIME_LIMIT; i+=2) {
+        if(isPrime[i]) {
+            for(long long int j=(i*i); j<PRIME_LIMIT; j+=(2*i))
+                isPrime[j] = false;
+        }
+    }
+    
+    primes.push_back(2);
+    for(int i=3; i<PRIME_LIMIT; i+=2) {
+        if(isPrime[i]) 
+            primes.push_back(i);
     }
 
-	int number = 2;
-	while (number * number <= limit) {
-		if (isPrime[number]) {
-			for(int index = number * number; index < limit + 1; index += number) {
-                isPrime[index] = false;
-			}
-		}
-		number += 1;
-	}
-
-	for(int index = 2; index < limit + 1; index++) {
-        if (isPrime[index]){
-            primeNumbers.push_back(index);
-        }
-	}
+    return primes;
 }
 
-// Driver Code
-int main(){
-    sieve(PRIME_LIMIT); 
+int main() {
+    vector<long long int> primes = sieve();
+    int testCaseCount, power;
+    long long int n, divisorCount;
 
-    int testCaseCount;
-    int testCase;
-    long long int query;
-    int answer;
+    cin >> testCaseCount;
+    for(int testCase=1; testCase <= testCaseCount; testCase++) {
+        cin >> n;
 
-    scanf("%d", &testCaseCount);
-
-    for(testCase=1; testCase <= testCaseCount; testCase++){
-        scanf("%lld", &query);
-        int queryLimit = sqrt(query);
-        answer=1;
-
-        // Logic
-        for(auto iterator=primeNumbers.begin(); iterator!=primeNumbers.end(); ++iterator){
-            int primeNumber=(*iterator);
-            int power=0;
-
-            if(query==1 || primeNumber > query || primeNumber>queryLimit){
+        divisorCount = 1;
+        for(long long int prime : primes){
+            if(n==1 || (prime*prime)>n)
                 break;
-            } 
-            else if(query%primeNumber==0){
-                while(query%primeNumber==0){
+            
+            else if(n>1 && n%prime==0){
+                power=0;
+                while(n>1 && n%prime==0){
                     power++;
-                    query/=primeNumber;
+                    n /= prime;
                 }
-                answer*=(power+1);
+                divisorCount *= (power+1);
             }
         }
     
-        if(query != 1) {
-            answer*=2;
+        if(n != 1) {
+            power = 1;
+            divisorCount *= (power+1);
         }
         
-        answer -= 1;
-        printf("Case %d: %lld\n",testCase,answer);
+        cout << "Case " << testCase << ": " << (divisorCount-1) << endl;
     }
-    return 0; 
+
+    return 0;
 }
