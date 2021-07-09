@@ -11,9 +11,9 @@ session     :   2017-2018
 int input[N];
 int tree[4*N];
 
-void update(int key, int value) {
+void update(int key, int valueToAdd) {
       while(key <= N-1) {
-            tree[key] += value;
+            tree[key] += valueToAdd;
             key += key & (-key);
       }
 }
