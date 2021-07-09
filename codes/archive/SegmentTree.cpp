@@ -11,7 +11,7 @@ session     :   2017-2018
 using namespace std;
 
 #define N 100100
-int tree[2*N];
+int tree[4*N];
 
 void build(vector<int>& input, int n) {
     // Fill Up Leaf Nodes
