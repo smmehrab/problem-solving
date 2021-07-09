@@ -9,7 +9,7 @@ session     :   2017-2018
 */
 #define N 100100
 int input[N];
-int tree[2*N];
+int tree[4*N];
 
 void update(int key, int value) {
       while(key <= N-1) {
