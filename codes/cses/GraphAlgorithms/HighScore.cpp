@@ -7,86 +7,42 @@ institute   :   university of dhaka, bangladesh
 session     :   2017-2018
 ************************************************
 */
-#include <iostream>
-#include <stdlib.h>
-#include <string.h>
-#include <limits.h>
-
+#include<bits/stdc++.h>
 using namespace std;
 
-struct Edge{
-    int source, destination, weight;
-};
+#define INF 0x3f3f3f3f
 
-struct Graph{
-    int V, E;
-    struct Edge* edge;
-};
-
-struct Graph* createGraph(int V, int E){
-    struct Graph* graph = (struct Graph*) malloc( sizeof(struct Graph));
-
-    graph->V = V;
-    graph->E = E;
-    graph->edge = (struct Edge*) malloc( graph->E * sizeof( struct Edge ) );
-
-    return graph;
-}
-
-void FinalSolution(int dist[], int n){
-    cout<<"\nVertex\tDistance from Source Vertex\n";
-    for (int i = 0; i < n; ++i)
-		cout<<i<<"\t\t"<<dist[i]<<"\n";
-}
-
-void BellmanFord(struct Graph* graph, int source){
-    int V = graph->V;
-    int E = graph->E;
-    int StoreDistance[V];
-
-    for (int i = 0; i < V; i++)
-        StoreDistance[i] = INT_MAX;
-
-    StoreDistance[source] = 0;
-
-    for (int i = 1; i <= V-1; i++){
-        for (int j = 0; j < E; j++){
-            int u = graph->edge[j].source;
-            int v = graph->edge[j].destination;
-            int weight = graph->edge[j].weight;
-
-            if (StoreDistance[u] + weight < StoreDistance[v])
-                StoreDistance[v] = StoreDistance[u] + weight;
+int bellmanFord(int source, int destination, int n, vector<vector<pair<int, int>>>& adjacents) {
+    bool isNegativeCycle = false;
+	vector<int> distances(n, INF);
+    distances[source] = 0;
+    for(int u=0, v, w; u<n; u++) {
+        isNegativeCycle = true;
+        for(pair<int, int> adjacent : adjacents[u]) {
+            tie(v, w) = adjacent;
+            if(distances[u] + w < distances[v]) {
+                isNegativeCycle = false;
+                distances[v] = distances[u] + w;
+            }
         }
     }
-
-    for (int i = 0; i < E; i++){
-        int u = graph->edge[i].source;
-        int v = graph->edge[i].destination;
-        int weight = graph->edge[i].weight;
-
-        if (StoreDistance[u] + weight < StoreDistance[v])
-            cout<<"\nThis graph contains negative edge cycle\n";
-    }
-
-    FinalSolution(StoreDistance, V);
-
-    return;
+    return (isNegativeCycle ? -1 : distances[n-1]);
 }
 
-int main(){
-    int V,E,S;
-    cin >> V >> E >> S;
+int main() {
+    int n, m, a, b, x, score;
+    cin >> n >> m;
 
-    struct Graph* graph = createGraph(V, E);
-
-    int i;
-    for(i=0;i<E;i++){
-        cin>>graph->edge[i].source;
-        cin>>graph->edge[i].destination;
-        cin>>graph->edge[i].weight;
+    vector<vector<pair<int, int>>> tunnels(n, vector<pair<int, int>>());
+    for(int i=0; i<m; i++) {
+        cin >> a >> b >> x;
+        a--, b--, x *= -1;
+        tunnels[a].push_back({b, x});
     }
 
-    BellmanFord(graph, S);
+    score = bellmanFord(0, n-1, n, tunnels);
+    score *= -1;
+
+    cout << score << endl;
     return 0;
 }
