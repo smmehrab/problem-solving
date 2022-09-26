@@ -2,3 +2,5 @@
 *~
 *.exe
 *.vscode
+*test.py
+*__pycache__/
