@@ -3,4 +3,6 @@
 *.exe
 *.vscode
 *test.py
+*test.cpp
+*test.c
 *__pycache__/
