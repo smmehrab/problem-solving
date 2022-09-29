@@ -35,7 +35,7 @@ class RabinKarp:
 
             if i < n-m:
                 ht = (self.base*(ht-(ord(text[i])*msbFactor)) + ord(text[i+m])) % self.modulo
-                if ht < 0:
-                    ht += self.modulo
+                # if ht < 0:
+                #     ht += self.modulo
 
         return indices
