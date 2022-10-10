@@ -18,13 +18,13 @@ class Solution(object):
             prime_index = ord(c)-base_value
             hash_value *= self.primes[prime_index]
         return hash_value
-            
+
     def groupAnagrams(self, strs):
         """
         :type strs: List[str]
         :rtype: List[List[str]]
         """
-        
+
         hToIndex = dict()
         anagrams = []
         for s in strs:
@@ -36,5 +36,5 @@ class Solution(object):
                 index = len(anagrams)-1
                 hToIndex[hs] = index
             anagrams[index].append(s)
-        
+
         return anagrams
