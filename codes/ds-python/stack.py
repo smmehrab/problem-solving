@@ -15,7 +15,7 @@ class Stack:
 
 	def __init__(self):
 		self.head = Node("head")
-		self.size = 0
+		self.__size = 0
 
 	def __str__(self):
 		node = self.head.next
@@ -25,14 +25,14 @@ class Stack:
 			node = node.next
 		return result[:-3]
 
-	def getSize(self):
-		return self.size
+	def size(self):
+		return self.__size
 
-	def isEmpty(self):
-		return self.size == 0
+	def empty(self):
+		return self.__size == 0
 
 	def peek(self):
-		if self.isEmpty():
+		if self.empty():
 			raise Exception("Can't Peek from Empty Stack")
 		return self.head.next.value
 
@@ -40,12 +40,12 @@ class Stack:
 		node = Node(value)
 		node.next = self.head.next
 		self.head.next = node
-		self.size += 1
+		self.__size += 1
 
 	def pop(self):
-		if self.isEmpty():
+		if self.empty():
 			raise Exception("Can't Pop from Empty Stack")
 		node = self.head.next
 		self.head.next = self.head.next.next
-		self.size -= 1
+		self.__size -= 1
 		return node.value
