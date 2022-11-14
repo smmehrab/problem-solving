@@ -8,9 +8,14 @@
 
 class DisjointSet():
 
-    def __init__(self, N):
-        self.parents = [node for node in range(N)]
-        self.ranks = [1 for _ in range(N)]
+    """
+        Union Find
+    """
+
+    def __init__(self):
+        self.parents = {}
+        self.ranks = {}
+        self.count = 0
 
     def find(self, u):
         while u != self.parents[u]: 
@@ -20,6 +25,18 @@ class DisjointSet():
         return u
 
     def union(self, u, v):
+
+        # new
+        if u not in self.parents:
+            self.parents[u] = u
+            self.ranks[u] = 1
+            self.count += 1
+
+        if v not in self.parents:
+            self.parents[v] = v
+            self.ranks[v] = 1
+            self.count += 1
+
         # rank optimization
         root_u = self.find(u)
         root_v = self.find(v)
@@ -36,7 +53,11 @@ class DisjointSet():
         else:
             self.parents[root_u] = root_v
             self.ranks[root_v] += 1
+        self.count -= 1
         return False
 
     def connected(self, u, v):
         return self.find(u) == self.find(v)
+
+    def get_count(self):
+        return self.count
