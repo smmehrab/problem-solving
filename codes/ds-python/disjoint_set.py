@@ -9,7 +9,9 @@
 class DisjointSet():
 
     """
-        Union Find
+        UnionFind Algorithm
+        Union - log(n)
+        Find - log(n)
     """
 
     def __init__(self):
