@@ -6,7 +6,7 @@
 # reg       :   2017614964
 # ************************************************
 
-class CountSort:
+class CountSorter:
 
     def __init__(self) -> None:
         pass
