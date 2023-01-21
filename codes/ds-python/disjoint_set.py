@@ -63,3 +63,22 @@ class DisjointSet():
 
     def get_count(self):
         return self.count
+
+
+    # Only Functions
+    # self.disjoint_set = {}
+
+    # def _union(self, x, y):
+    #     root_x = self._find(x)
+    #     root_y = self._find(y)
+    #     # smallest = root
+    #     if root_x > root_y:
+    #         self.disjoint_set[root_x] = root_y
+    #     else:
+    #         self.disjoint_set[root_y] = root_x
+
+    # def _find(self, x):
+    #     self.disjoint_set.setdefault(x, x)
+    #     if x != self.disjoint_set[x]:
+    #         self.disjoint_set[x] = self._find(self.disjoint_set[x])
+    #     return self.disjoint_set[x]
