@@ -7,13 +7,11 @@
 # ************************************************
 
 class Solution(object):
-    def minSubArrayLen(self, target, nums):
+
+    def solveUsingSlidingWindow(self, target, nums):
         """
-        :type target: int
-        :type nums: List[int]
-        :rtype: int
+            O(n)
         """
-        
         n = len(nums)
         left = 0
         right = 0
@@ -29,3 +27,45 @@ class Solution(object):
 
         subarray_len = 0 if subarray_len==n+1 else subarray_len
         return subarray_len
+
+    def binarySearch(self, x, array, low, high):
+        while low <= high:
+            mid = low + (high - low)//2
+            if array[mid] == x:
+                return mid
+            elif array[mid] < x:
+                low = mid + 1
+            else:
+                high = mid - 1
+        return -1
+
+    def solveUsingBinarySearch(self, target, nums):
+        """
+            O(nlog(n))
+        """
+        n = len(nums)
+        if n==0:
+            return 0
+        
+        subarray_len = n+1
+        sums = [0]*n
+
+        sums[0] = nums[0]
+        index = 1
+        while index<n:
+            sums[index] = sums[index-1] + nums[index]
+
+        index = 1
+        while 
+
+        return subarray_len
+
+    def minSubArrayLen(self, target, nums):
+        """
+        :type target: int
+        :type nums: List[int]
+        :rtype: int
+        """
+        # min_subarray_len = self.solveUsingBinarySearch(target, nums)
+        min_subarray_len = self.solveUsingSlidingWindow(target, nums)
+        return min_subarray_len
