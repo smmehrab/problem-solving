@@ -14,10 +14,14 @@ class DisjointSet():
         Find - log(n)
     """
 
-    def __init__(self):
+    def __init__(self, n=None):
         self.parents = {}
         self.ranks = {}
         self.count = 0
+
+        if n:
+            for i in range(n):
+                self.union(i, i)
 
     def find(self, u):
         while u != self.parents[u]: 
