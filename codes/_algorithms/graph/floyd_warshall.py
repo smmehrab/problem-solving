@@ -6,52 +6,35 @@
 # reg       :   2017614964
 # ************************************************
 
-class Graph:
+nV = 4
+INF = 999
 
-    """
-        Floyd Warshall Algorithm
-        O(V^3)
-    """
 
-    def __init__(self, number_of_vertices):
-        self.graph = []
-        self.V = number_of_vertices
+# Algorithm implementation
+def floyd_warshall(G):
+    distance = list(map(lambda i: list(map(lambda j: j, i)), G))
 
-    def add(self, u, v, w):
-        self.graph.append([u, v, w])
+    # Adding vertices individually
+    for k in range(nV):
+        for i in range(nV):
+            for j in range(nV):
+                distance[i][j] = min(distance[i][j], distance[i][k] + distance[k][j])
+    print_solution(distance)
 
-    def _output(self, distances):
-        print("{0}\t\t{1}".format("Vertex", "Distance"))
-        for i in range(self.V):
-            print("{0}\t\t{1}".format(i, distances[i]))
 
-    def bellman_ford(self, source):
+# Printing the solution
+def print_solution(distance):
+    for i in range(nV):
+        for j in range(nV):
+            if(distance[i][j] == INF):
+                print("INF", end=" ")
+            else:
+                print(distance[i][j], end="  ")
+        print(" ")
 
-        distances = [float("Inf")] * self.V
-        distances[source] = 0
 
-        for _ in range(self.V - 1):
-            for u, v, w in self.graph:
-                if distances[u] != float("Inf") and distances[v] > distances[u] + w:
-                    distances[v] = distances[u] + w
-
-        for u, v, w in self.graph:
-            if distances[u] != float("Inf") and distances[v] > distances[u] + w:
-                print("Negative Cycle Detected!")
-                return
-
-        self._output(distances)
-
-if __name__ == '__main__':
-    graph = Graph(5)
-    graph.add(0, 1, -1)
-    graph.add(0, 2, 4)
-    graph.add(1, 2, 3)
-    graph.add(1, 3, 2)
-    graph.add(1, 4, 2)
-    graph.add(3, 2, 5)
-    graph.add(3, 1, 1)
-    graph.add(4, 3, -3)
-
-    graph.bellman_ford(0)
-
+G = [[0, 3, INF, 5],
+         [2, 0, INF, 4],
+         [INF, 1, 0, INF],
+         [INF, INF, 2, 0]]
+floyd_warshall(G)
