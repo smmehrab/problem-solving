@@ -12,7 +12,7 @@ class Graph:
         self.graph = {node: [] for node in range(self.n)}
 
     # DFS
-    def _helper(self, source, visited, result):
+    def _helper(self, source, visited, topological_order):
         stack = [(source, self.graph[source])]
         while stack:
             node, neighbors = stack.pop()
@@ -23,21 +23,49 @@ class Graph:
                     stack.append((neighbor, self.graph[neighbor]))
                     break
             else:
-                result.append(node)
+                topological_order.append(node)
 
     def add_edge(self, u, v):
         self.graph[u].append(v)
 
-    # Topological Sort
-    def topological_sort(self):
-        visited = [False]*self.n
+    # Topological Sort with Kahn's Algorithm
+    def topological_sort_kahn(self):
 
-        result = []
+        in_degrees = [0]*(self.n)
+        topological_order = []
+        queue = []
+
+        for node in self.graph:
+            for neighbor in self.graph[node]:
+                in_degrees[neighbor] += 1
+ 
+        for i in range(self.n):
+            if in_degrees[i] == 0:
+                queue.append(i)
+ 
+        while queue:
+            node = queue.pop(0)
+            topological_order.append(node)
+            for neighbor in self.graph[node]:
+                in_degrees[neighbor] -= 1
+                if in_degrees[neighbor] == 0:
+                    queue.append(neighbor)
+
+        if len(topological_order) != self.n:
+            print ("[Invalid Graph] No Topological Sort")
+            return None
+
+        return topological_order
+
+    # Topological Sort with DFS
+    def topological_sort_dfs(self):
+        visited = [False]*self.n
+        topological_order = []
         for node in range(self.n):
             if not visited[node]:
-                self._helper(node, visited, result)
-        result.reverse()
-        return result
+                self._helper(node, visited, topological_order)
+        topological_order.reverse()
+        return topological_order
 
 if __name__ == "__main__":
     graph = Graph(6)
@@ -48,8 +76,10 @@ if __name__ == "__main__":
     graph.add_edge(2, 3)
     graph.add_edge(3, 1)
 
-    result = graph.topological_sort()
+    topological_order1 = graph.topological_sort_dfs()
+    topological_order2 = graph.topological_sort_kahn()
 
-    print("Topologically Sorted:")
-    print(result)
+    print("Topological Order:")
+    print(topological_order1)
+    print(topological_order2)
 
